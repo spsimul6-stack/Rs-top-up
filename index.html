@@ -1,101 +1,674 @@
-class="nav-item nav-active">
-      <div class="nav-icon">⌂</div>
-      Home
-    </div>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RS Top Up</title>
 
-    <div class="nav-item">
-      <div class="nav-icon">🛒</div>
-      Orders
-    </div>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f6fb;
+  color:#171717;
+  padding-bottom:80px
+}
+.header{
+  background:#fff;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 10px #ddd;
+  position:sticky;
+  top:0;
+  z-index:10
+}
+.logo{
+  font-size:23px;
+  font-weight:bold;
+  color:#6c35e8
+}
+.balance{
+  background:#f0eaff;
+  color:#6030d5;
+  padding:8px 12px;
+  border-radius:20px;
+  font-weight:bold
+}
+.container{padding:15px}
+.hero{
+  background:linear-gradient(135deg,#7137ed,#9b61ff);
+  color:#fff;
+  padding:22px;
+  border-radius:18px;
+  margin-bottom:18px
+}
+.hero h1{font-size:27px;margin-bottom:8px}
+.hero p{opacity:.9}
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  margin:20px 0 12px
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px
+}
+.card{
+  background:#fff;
+  padding:18px 10px;
+  border-radius:16px;
+  box-shadow:0 2px 10px #ddd;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s
+}
+.card:active{transform:scale(.97)}
+.card .icon{font-size:35px;margin-bottom:8px}
+.card h3{font-size:15px}
+.offer{
+  background:#fff;
+  border-radius:16px;
+  padding:17px;
+  margin-top:12px;
+  box-shadow:0 2px 10px #ddd
+}
+.offer strong{color:#6c35e8}
+.payment-box{
+  background:#fff;
+  border-radius:16px;
+  padding:18px;
+  margin-top:12px;
+  box-shadow:0 2px 10px #ddd
+}
+.pay-number{
+  padding:12px;
+  background:#f6f3ff;
+  border-radius:10px;
+  margin-top:10px
+}
+.promo{
+  background:linear-gradient(135deg,#fff3c4,#ffe58a);
+  padding:17px;
+  border-radius:16px;
+  margin-top:15px
+}
+.support{
+  background:#e9fff0;
+  padding:18px;
+  border-radius:16px;
+  margin-top:15px
+}
+.support button{
+  width:100%;
+  border:0;
+  background:#20b957;
+  color:white;
+  padding:13px;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:bold;
+  margin-top:10px
+}
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  height:68px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -2px 12px #ddd;
+  z-index:20
+}
+.bottom div{
+  text-align:center;
+  font-size:12px;
+  color:#555
+}
+.bottom .bi{font-size:23px}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:100;
+  overflow-y:auto;
+  padding:15px
+}
+.modal-box{
+  background:#fff;
+  max-width:520px;
+  margin:20px auto;
+  border-radius:20px;
+  padding:20px
+}
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px
+}
+.close{
+  font-size:28px;
+  cursor:pointer;
+  color:#777
+}
+.step{
+  font-size:18px;
+  font-weight:bold;
+  margin:18px 0 10px
+}
+.packages{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px
+}
+.package{
+  border:2px solid #e1e1e1;
+  padding:13px;
+  border-radius:12px;
+  cursor:pointer;
+  text-align:center
+}
+.package.selected{
+  border-color:#7137ed;
+  background:#f2edff
+}
+.package b{display:block}
+.input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:16px;
+  margin-top:7px
+}
+.check-btn{
+  width:100%;
+  padding:12px;
+  margin-top:9px;
+  border:0;
+  border-radius:10px;
+  background:#eee;
+  font-weight:bold
+}
+.player{
+  background:#f2f2f2;
+  padding:12px;
+  border-radius:10px;
+  margin-top:9px;
+  display:none
+}
+.pay-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
+}
+.pay{
+  border:2px solid #ddd;
+  padding:14px;
+  border-radius:12px;
+  text-align:center;
+  cursor:pointer
+}
+.pay.selected{
+  border-color:#7137ed;
+  background:#f2edff
+}
+.summary{
+  background:#f7f7f7;
+  padding:15px;
+  border-radius:12px;
+  line-height:1.8
+}
+.confirm{
+  width:100%;
+  background:#7137ed;
+  color:#fff;
+  border:0;
+  padding:15px;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:bold;
+  margin-top:15px
+}
+.note{
+  background:#fff5df;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:14px
+}
+.success{
+  display:none;
+  text-align:center;
+  padding:25px 10px
+}
+.success .big{font-size:60px}
+.order-id{
+  background:#f0eaff;
+  padding:13px;
+  border-radius:10px;
+  margin:15px 0;
+  font-weight:bold
+}
+.whatsapp{
+  display:inline-block;
+  margin-top:12px;
+  background:#20b957;
+  color:white;
+  text-decoration:none;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:bold
+}
+</style>
+</head>
 
-    <div class="float-btn" onclick="openOrder('New Order')">
-      +
-    </div>
+<body>
 
-    <div class="nav-item">
-      <div class="nav-icon">💳</div>
-      Wallet
-    </div>
+<header class="header">
+  <div class="logo">RS TOP UP</div>
+  <div class="balance">৳ 0.00</div>
+</header>
 
-    <div class="nav-item">
-      <div class="nav-icon">👤</div>
-      Profile
-    </div>
+<main class="container">
 
-  </nav>
+<section class="hero">
+  <h1>Welcome to RS Top Up</h1>
+  <p>Fast, secure & easy game top up service.</p>
+</section>
+
+<div class="section-title">TOP UP</div>
+
+<div class="grid">
+
+  <div class="card" onclick="openOrder()">
+    <div class="icon">💎</div>
+    <h3>UID TOPUP</h3>
+  </div>
+
+  <div class="card" onclick="openOrder()">
+    <div class="icon">🔥</div>
+    <h3>FF WEEKLY OFFER</h3>
+  </div>
+
+  <div class="card" onclick="openOrder()">
+    <div class="icon">💰</div>
+    <h3>FF MONTHLY OFFER</h3>
+  </div>
+
+  <div class="card" onclick="openOrder()">
+    <div class="icon">🎫</div>
+    <h3>FF LV PASS</h3>
+  </div>
+
+  <div class="card" onclick="openOrder()">
+    <div class="icon">⚡</div>
+    <h3>WEEKLY FRIDAY</h3>
+  </div>
+
+  <div class="card" onclick="openOrder()">
+    <div class="icon">❤️</div>
+    <h3>FF LIKE</h3>
+  </div>
+
+</div>
+
+<div class="section-title">SPECIAL OFFER</div>
+
+<div class="offer">
+  <strong>🎁 Special Top Up Offer</strong>
+  <p style="margin-top:7px">সেরা দামে দ্রুত Top Up করুন।</p>
+</div>
+
+<div class="section-title">PAYMENT METHODS</div>
+
+<div class="payment-box">
+  <b>💳 bKash</b>
+  <div class="pay-number">01318530319</div>
+
+  <b style="display:block;margin-top:14px">💰 Nagad</b>
+  <div class="pay-number">01345329368</div>
+</div>
+
+<div class="promo">
+  <strong>🎟️ Promo Code: RS26</strong>
+  <p style="margin-top:6px">Promo Code section বর্তমানে রাখা হয়েছে।</p>
+</div>
+
+<div class="support">
+  <h3>🆘 Help & Support</h3>
+  <p style="margin-top:7px">অর্ডারে কোনো সমস্যা হলে আমাদের WhatsApp Support-এ যোগাযোগ করুন।</p>
+
+  <button onclick="supportWhatsApp()">
+    💬 WhatsApp Support
+  </button>
+</div>
+
+</main>
+
+<nav class="bottom">
+  <div onclick="location.reload()">
+    <div class="bi">🏠</div>
+    Home
+  </div>
+  <div onclick="alert('আপনার Orders এখানে দেখা যাবে।')">
+    <div class="bi">🛒</div>
+    Orders
+  </div>
+  <div onclick="openOrder()">
+    <div class="bi">💎</div>
+    Top Up
+  </div>
+  <div onclick="alert('Wallet Balance: ৳ 0.00')">
+    <div class="bi">💳</div>
+    Wallet
+  </div>
+  <div onclick="alert('Profile')">
+    <div class="bi">👤</div>
+    Profile
+  </div>
+</nav>
+
+
+<!-- ORDER MODAL -->
+
+<div class="modal" id="orderModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+  <h2>UID Top Up</h2>
+  <span class="close" onclick="closeOrder()">×</span>
+</div>
+
+<div id="orderForm">
+
+<div class="step">1️⃣ Select Recharge</div>
+
+<div class="packages">
+
+  <div class="package" onclick="selectPackage(this,'25 Diamond',22)">
+    <b>25 Diamond</b>
+    ৳22
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'50 Diamond',38)">
+    <b>50 Diamond</b>
+    ৳38
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'115 Diamond',79)">
+    <b>115 Diamond</b>
+    ৳79
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'240 Diamond',155)">
+    <b>240 Diamond</b>
+    ৳155
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'610 Diamond',400)">
+    <b>610 Diamond</b>
+    ৳400
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'1240 Diamond',800)">
+    <b>1240 Diamond</b>
+    ৳800
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'2530 Diamond',1610)">
+    <b>2530 Diamond</b>
+    ৳1610
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'Weekly',158)">
+    <b>Weekly</b>
+    ৳158
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'Monthly',780)">
+    <b>Monthly</b>
+    ৳780
+  </div>
+
+  <div class="package" onclick="selectPackage(this,'Weekly Lite',40)">
+    <b>Weekly Lite</b>
+    ৳40
+  </div>
+
+</div>
+
+<div class="step">2️⃣ Account Info</div>
+
+<label>UID / Player ID</label>
+<input id="uid" class="input" type="text" placeholder="আপনার UID লিখুন">
+
+<button class="check-btn" onclick="checkPlayer()">
+  🔍 Click to Check Player Name
+</button>
+
+<div class="player" id="playerBox"></div>
+
+<div class="step">3️⃣ Payment Method</div>
+
+<div class="pay-options">
+
+  <div class="pay" onclick="selectPayment(this,'bKash')">
+    💳<br><b>bKash</b>
+    <small>01318530319</small>
+  </div>
+
+  <div class="pay" onclick="selectPayment(this,'Nagad')">
+    💰<br><b>Nagad</b>
+    <small>01345329368</small>
+  </div>
+
+</div>
+
+<div class="note">
+  Payment করার পর আপনার Transaction ID নিচে লিখুন।
+</div>
+
+<input id="trx" class="input" type="text" placeholder="Transaction ID">
+
+<div class="step">4️⃣ Order Summary</div>
+
+<div class="summary">
+  Package: <b id="sumPackage">Not Selected</b><br>
+  Price: <b id="sumPrice">৳0</b><br>
+  UID: <b id="sumUid">Not Entered</b><br>
+  Payment: <b id="sumPayment">Not Selected</b><br>
+  Transaction ID: <b id="sumTrx">Not Entered</b>
+</div>
+
+<button class="confirm" onclick="confirmOrder()">
+  ✅ Confirm Order
+</button>
 
 </div>
 
 
-<!-- ORDER MODAL -->
-<div class="modal" id="orderModal">
+<div class="success" id="successBox">
 
-  <div class="modal-box">
+<div class="big">✅</div>
 
-    <div class="modal-head">
-      <h2>Account Info</h2>
-      <button class="close" onclick="closeOrder()">×</button>
-    </div>
+<h2>Order Submitted!</h2>
 
-    <p>আপনার Game UID / Player ID দিন</p>
+<p style="margin-top:8px">
+আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।
+</p>
 
-    <input
-      class="input"
-      id="playerId"
-      type="text"
-      placeholder="এখানে UID / Player ID দিন"
-    >
+<div class="order-id" id="orderId"></div>
 
-    <button class="check" onclick="checkPlayer()">
-      Click to check player name
-    </button>
+<p>
+অর্ডার সংক্রান্ত কোনো সমস্যা হলে Support-এ যোগাযোগ করুন।
+</p>
 
-    <div class="notice" id="playerResult">
-      Product: <b id="selectedProduct">-</b>
-      <br><br>
-      Player Name: <b id="playerName">Check করা হয়নি</b>
-    </div>
+<a class="whatsapp" href="https://wa.me/8801318530319" target="_blank">
+  💬 WhatsApp Support
+</a>
 
-  </div>
+<button class="confirm" onclick="closeOrder()">
+  Done
+</button>
 
+</div>
+
+</div>
 </div>
 
 
 <script>
 
-let selectedProduct = "";
+let selectedPackage="";
+let selectedPrice=0;
+let selectedPayment="";
+let playerVerified=false;
 
-function openOrder(product){
-
-  selectedProduct = product;
-
-  document.getElementById("selectedProduct").innerText =
-    product;
-
-  document.getElementById("orderModal").style.display =
-    "flex";
-
+function openOrder(){
+  document.getElementById("orderModal").style.display="block";
+  document.body.style.overflow="hidden";
 }
 
 function closeOrder(){
+  document.getElementById("orderModal").style.display="none";
+  document.body.style.overflow="auto";
+}
 
-  document.getElementById("orderModal").style.display =
-    "none";
+function selectPackage(el,name,price){
+
+  document.querySelectorAll(".package").forEach(x=>{
+    x.classList.remove("selected");
+  });
+
+  el.classList.add("selected");
+
+  selectedPackage=name;
+  selectedPrice=price;
+
+  document.getElementById("sumPackage").innerText=name;
+  document.getElementById("sumPrice").innerText="৳"+price;
+
+}
+
+function selectPayment(el,payment){
+
+  document.querySelectorAll(".pay").forEach(x=>{
+    x.classList.remove("selected");
+  });
+
+  el.classList.add("selected");
+
+  selectedPayment=payment;
+
+  document.getElementById("sumPayment").innerText=payment;
 
 }
 
 function checkPlayer(){
 
-  let uid =
-    document.getElementById("playerId").value.trim();
+  let uid=document.getElementById("uid").value.trim();
 
-  if(uid === ""){
-    alert("দয়া করে আপনার UID / Player ID দিন");
+  if(uid===""){
+    alert("আগে UID / Player ID লিখুন।");
     return;
   }
 
   /*
-   * এখন শুধু Demo Player Name দেখাচ্ছে।
-   * পরের ধাপে আসল Player Name API যুক্ত করা হবে।
-   */>
-    </html>
+    এখানে বর্তমানে Demo Player Name Check রাখা হয়েছে।
+    Real Free Fire Player Name API পরে যুক্ত করা যাবে।
+  */
+
+  playerVerified=true;
+
+  document.getElementById("playerBox").style.display="block";
+  document.getElementById("playerBox").innerHTML=
+  "✅ Player Verified<br><b>Player ID: "+uid+"</b>";
+
+  document.getElementById("sumUid").innerText=uid;
+
+}
+
+document.getElementById("uid").addEventListener("input",function(){
+  document.getElementById("sumUid").innerText=
+  this.value || "Not Entered";
+  playerVerified=false;
+});
+
+document.getElementById("trx").addEventListener("input",function(){
+  document.getElementById("sumTrx").innerText=
+  this.value || "Not Entered";
+});
+
+function confirmOrder(){
+
+  let uid=document.getElementById("uid").value.trim();
+  let trx=document.getElementById("trx").value.trim();
+
+  if(selectedPackage===""){
+    alert("একটি Package নির্বাচন করুন।");
+    return;
+  }
+
+  if(uid===""){
+    alert("UID / Player ID লিখুন।");
+    return;
+  }
+
+  if(!playerVerified){
+    alert("আগে Player Name Check করুন।");
+    return;
+  }
+
+  if(selectedPayment===""){
+    alert("Payment Method নির্বাচন করুন।");
+    return;
+  }
+
+  if(trx===""){
+    alert("Transaction ID লিখুন।");
+    return;
+  }
+
+  let orderId=
+  "RS"+Date.now().toString().slice(-8);
+
+  document.getElementById("orderForm").style.display="none";
+  document.getElementById("successBox").style.display="block";
+
+  document.getElementById("orderId").innerText=
+  "Order ID: "+orderId;
+
+}
+
+function supportWhatsApp(){
+
+  window.open(
+    "https://wa.me/8801318530319",
+    "_blank"
+  );
+
+}
+
+window.onclick=function(e){
+
+  let modal=document.getElementById("orderModal");
+
+  if(e.target===modal){
+    closeOrder();
+  }
+
+}
+
+</script>
+
+</body>
+</html>
