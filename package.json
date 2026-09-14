@@ -1,0 +1,20 @@
+{
+  "name": "rs-top-up-complete",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RS Top Up order + wallet payment system with SSLCOMMERZ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "better-sqlite3": "^12.4.1",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  }
+}
