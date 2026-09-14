@@ -91,7 +91,7 @@ function publicUrl(p) { return `${BASE_URL}${p}`; }
 
 app.use(express.json({ limit: "100kb" }));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "")));
 
 app.get("/api/products", (req, res) => res.json(PRODUCTS));
 
